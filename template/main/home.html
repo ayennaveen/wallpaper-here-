@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> WALLPAPER HEAR</title>
+   <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+   <div class="header">
+      <nav>
+         <h1>WALLPAPER HEAR</h1>
+         <ul>
+            <a href="/"><li>All |</li></a>
+         <a href="/?type=anime"><li>Anime |</li></a>
+<a href="/?type=nature"><li>Nature |</li></a>
+<a href="/?type=games"><li>Games |</li></a>
+<a href="/?type=mountain"><li>Mountain</li></a>
+
+              <div class="theme-switch-container"> 
+    <label class="theme-slider" for="checkbox"> 
+        <input onclick="asdwe(event)" type="checkbox" id="checkbox" class="checkbox" /> 
+        <div class="round slider"></div> 
+    </label> 
+
+</div> 
+
+<script src="{% static 'main/jsscript.js' %}"></script>
+         </ul>
+      </nav>
+   </div>
+   <div class="search-container">
+    <form action="#" method="get">
+      <input type="text" placeholder="Search..." name="search">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+
+  {% for d in dests %}
+<div class="wallpaper">
+   <div class="a12">
+      <img src="{{ d.img.url }}" width="320" height="320">
+   </div>
+
+   <a href="{{ d.img.url }}" download>
+      <button class="btn">Download</button>
+   </a>
+</div>
+{% endfor %}
+</body>
+</html>
