@@ -24,7 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--%e9w2x+me4-vp83xb1=q+w4s7!v339rnzf8t-hfy6y8vxkbc('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+ALLOWED_HOSTS = ['.onrender.com']
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,7 +75,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mkdir.wsgi.application'
 
-
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 import dj_database_url
 
