@@ -35,6 +35,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+      'cloudinary',
+    'cloudinary_storage',
+
    
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +47,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
 ]
+CLOUDINARY_URL="cloudinary://739943485751172:g_9doBvNhKbW-XyO34QOqmTTvTk@dydfafccz"
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dydfafccz",
+    api_key="739943485751172",
+    api_secret="g_9doBvNhKbW-XyO34QOqmTTvTk",
+    secure=True
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,5 +144,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
