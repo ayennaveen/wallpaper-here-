@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 import dj_database_url
 import cloudinary
-import sys
 
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,16 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure--%e9w2x+me4-vp83xb1=q+w4s7!v339rnzf8t-hfy6y8vxkbc(')
 
-# Environment detection
-ON_RENDER = os.environ.get('RENDER', False)
-DEVELOPMENT_MODE = not ON_RENDER
-
-if DEVELOPMENT_MODE:
-    DEBUG = True
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-else:
-    DEBUG = False
-    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.onrender.com').split(',')
+# Debug and hosts
+DEBUG = False  # Always False on Render
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -82,30 +74,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mkdir.wsgi.application'
 
-# Database configuration
-if DEVELOPMENT_MODE:
-    # Local development: SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    # Production: PostgreSQL with better error handling
-    DATABASE_URL = os.environ.get('DATABASE_URL')
-    if not DATABASE_URL:
-        # Fallback to hardcoded URL if environment variable is not set
-        DATABASE_URL = "postgresql://wallpaper_g7kj_user:iA59in3Wvuj4nZreiWbAYVU5LtLTDlNW@singapore-postgres.render.com:5432/wallpaper_g7kj"
-        print("WARNING: Using hardcoded DATABASE_URL. Set environment variable for security.")
-    
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True,
-        )
-    }
+# Database - Using DATABASE_URL from environment
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    # Fallback - this should NOT be used in production
+    DATABASE_URL = "postgresql://wallpaper_g7kj_user:iA59in3Wvuj4nZreiWbAYVU5LtLTDlNW@singapore-postgres.render.com:5432/wallpaper_g7kj"
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -138,15 +119,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Storage configuration
-if DEVELOPMENT_MODE:
-    # Local development: Use local storage
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-else:
-    # Production: Use Cloudinary
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Cloudinary storage
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
