@@ -29,3 +29,15 @@ class Wallpaper(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+from main.models import Wallpaper
+
+# Create a test wallpaper
+Wallpaper.objects.create(
+    title="Test Mountain",
+    category="MOUNTAIN",
+    device="desktop",
+    img="https://res.cloudinary.com/dydfafccz/image/upload/v1/sample.jpg"  # Test URL
+)
