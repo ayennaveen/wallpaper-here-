@@ -161,3 +161,25 @@ else:
             'NAME': Path(__file__).resolve().parent.parent / 'db.sqlite3',
         }
     }
+
+    # Cloudinary configuration
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dydfafccz',
+    'API_KEY': '739943485751172',
+    'API_SECRET': 'g_9doBvNhKbW-XyO34QOqmTTvTk'
+}
+
+cloudinary.config(
+    cloud_name="dydfafccz",
+    api_key="739943485751172",
+    api_secret="g_9doBvNhKbW-XyO34QOqmTTvTk",
+    secure=True
+)
+
+# Make sure these are set correctly
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
