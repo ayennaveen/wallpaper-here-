@@ -1,35 +1,27 @@
 from django.shortcuts import render
-from .models import Destination   # IMPORTANT import
+from .models import Wallpaper
+from django.shortcuts import render
 
 def home(request):
-    dests = Destination.objects.all()
-    return render(request, 'main/home.html', {
-        'dests': dests
-    })
-def home(request):
-    search_query = request.GET.get('search')
+    wallpapers = Wallpaper.objects.all()
 
-    if search_query:
-        dests = Destination.objects.filter(name__icontains=search_query)
-    else:
-        dests = Destination.objects.all()
+    # filter by device (mobile / desktop)
+   
+    wallpaper_type = request.GET.get('type')
+    device = request.GET.get('device')
 
-    return render(request, 'main/home.html', {
-        'dests': dests
-    })
+    wallpapers = Wallpaper.objects.all()
 
-def home(request):
-    dests = Destination.objects.all()
+    if wallpaper_type:
+        wallpapers = wallpapers.filter(type=wallpaper_type)
 
-    category = request.GET.get('type')
+    if device:
+        wallpapers = wallpapers.filter(device=device)
+    # search by title
     search = request.GET.get('search')
-
-    if category:
-        dests = dests.filter(img_type=category)
-
     if search:
-        dests = dests.filter(name__icontains=search)  # ✅ FIXED HERE
+        wallpapers = wallpapers.filter(title__icontains=search.strip())
 
-    return render(request, 'main/home.html', {
-        'dests': dests
+    return render(request, 'home.html', {
+        'wallpapers': wallpapers
     })

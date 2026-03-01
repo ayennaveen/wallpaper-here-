@@ -5,7 +5,11 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title> WALLPAPER HEAR</title>
-   <link rel="stylesheet" href="{% static 'main/style.css' %}">
+  <link rel="stylesheet" href="{% static 'main/style.css' %}?v=2">
+  
+
+
+
 </head>
 <body>
    <div class="header">
@@ -36,18 +40,28 @@
       <button type="submit">Search</button>
     </form>
   </div>
-
-
-  {% for d in dests %}
-<div class="wallpaper">
-   <div class="a12">
-      <img src="{{ d.img.url }}" width="320" height="320">
-   </div>
-
-   <a href="{{ d.img.url }}" download>
-      <button class="btn">Download</button>
-   </a>
+<div class="device-filter">
+  <a href="/?device=desktop" class="device-btn">🖥 Desktop</a>
+  <a href="/?device=mobile" class="device-btn">📱 Mobile</a>
 </div>
-{% endfor %}
+<!-- WALLPAPER GRID -->
+<div class="wallpaper-container">
+    {% for wallpaper in wallpapers %}
+    
+    <div class="card {% if wallpaper.device == 'desktop' %}desktop{% else %}mobile{% endif %}">
+        <img src="{{ wallpaper.img.url }}">
+
+        
+        <a href="{{ wallpaper.img.url }}" download class="download-btn">
+            ⬇
+        </a>
+
+    </div>
+
+    {% endfor %}
+</div>
+
+
+
 </body>
 </html>

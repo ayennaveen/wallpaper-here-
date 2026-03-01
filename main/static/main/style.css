@@ -1,262 +1,245 @@
+/* =======================
+   GLOBAL RESET
+======================= */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* =====================
-   BASE
-===================== */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding-top: 110px;
+    background-color: #0f0f0f;
+    color: white;
 }
 
-/* =====================
-   HEADER
-===================== */
+/* =======================
+   HEADER / NAVBAR
+======================= */
 .header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #111;
-  color: white;
-  z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    background: #111;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-  flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav h1 {
-  font-size: 20px;
-  font-weight: bold;
-  flex: 1;
+    font-size: 22px;
+    color: #ff3c78;
 }
 
-/* =====================
-   NAV LINKS
-===================== */
-ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  flex: 2;
-  justify-content: center;
-  padding-left: 6px;
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
 }
 
-ul a {
-  color: #e0e0e0;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 14px;
+nav ul a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
 }
 
-ul a:hover {
-  color: #ffffff;
+nav ul a:hover {
+    color: #ff3c78;
 }
 
-/* =====================
-   THEME SWITCH
-===================== */
-.theme-switch-container {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.theme-slider {
-  position: relative;
-  width: 50px;
-  height: 24px;
-}
-
-.theme-slider input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  inset: 0;
-  cursor: pointer;
-  border-radius: 34px;
-  background-image: linear-gradient(#002231, #00364D);
-  transition: 0.4s;
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  left: 5px;
-  bottom: 4px;
-  border-radius: 50%;
-  background: black;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:checked + .slider::before {
-  transform: translateX(26px);
-}
-
-/* =====================
+/* =======================
    SEARCH BAR
-===================== */
+======================= */
 .search-container {
-  position: fixed;
-  top: 75px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  z-index: 999;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-container form {
+    display: flex;
+    width: 60%;
+    max-width: 500px;
 }
 
 .search-container input {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 220px;
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px 0 0 6px;
+    border: none;
+    outline: none;
 }
 
 .search-container button {
-  padding: 6px 12px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    background: #ff3c78;
+    color: white;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
 }
 
 .search-container button:hover {
-  background-color: #2980b9;
+    background: #ff1f5a;
 }
 
-/* =====================
-   WALLPAPER GRID
-===================== */
-.a12 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+/* =======================
+   DEVICE FILTER BUTTONS
+======================= */
+.device-filter {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin: 20px 0 !important;
+    padding: 15px !important;
+    flex-wrap: wrap !important;
+    background-color: transparent !important;
 }
 
-.wallpaper {
-  position: relative;
+.device-btn {
+    display: inline-block !important;
+    padding: 12px 24px !important;
+    background-color: #ff3c78 !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    border: none !important;
 }
 
-.a12 img {
-  display: block;
-  width: 320px;
-  height: 320px;
-  padding: 5px;
-  border-radius: 8px;
+.device-btn:hover {
+    background-color: #ff1f5a !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    color: white !important;
 }
 
-/* =====================
-   IMAGE BUTTON
-===================== */
-.btn {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  padding: 8px 16px;
-  background-color: rgba(52, 152, 219, 0.9);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn:hover {
-  background-color: rgba(41, 128, 185, 0.9);
-}
-
-/* =====================
-   MOBILE FIX
-===================== */
-@media (max-width: 768px) {
-
-  body {
-    padding-top: 150px;
-  }
-
-  nav {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  nav h1 {
-    text-align: center;
-  }
-
-  ul {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .theme-switch-container {
-    justify-content: center;
-  }
-
-  .search-container {
+/* =======================
+   GALLERY GRID
+======================= */
+.gallery {
     width: 90%;
-    top: 130px;
-    flex-direction: column;
-  }
-
-  .search-container input {
-    width: 100%;
-  }
-
-  .search-container button {
-    width: 100%;
-  }
-
-  .a12 img {
-    width: 90vw;
-    height: auto;
-  }
-
-  .btn {
-    bottom: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    font-size: 12px;
-  }
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding-bottom: 40px;
 }
 
-/* =====================
-   EXTRA SMALL PHONES
-===================== */
-@media (max-width: 480px) {
+/* =======================
+   CARD
+======================= */
+.card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    transition: 0.3s;
+}
 
-  ul a {
-    font-size: 12px;
-  }
+.card:hover {
+    transform: translateY(-5px);
+}
 
-  nav h1 {
-    font-size: 17px;
-  }
+/* =======================
+   IMAGE CONTAINER
+======================= */
+.image-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container.desktop {
+    aspect-ratio: 16 / 9;
+}
+
+.image-container.mobile {
+    aspect-ratio: 9 / 16;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =======================
+   TITLE
+======================= */
+.card h3 {
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+/* =======================
+   DOWNLOAD BUTTON
+======================= */
+.download-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 18px;
+    background: #ff3c78;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.download-btn:hover {
+    background: #ff1f5a;
+}
+
+/* =======================
+   DARK MODE TOGGLE
+======================= */
+body.light-mode {
+    background: #f4f4f4;
+    color: #111;
+}
+
+body.light-mode .card {
+    background: white;
+}
+
+body.light-mode .header {
+    background: white;
+}
+
+body.light-mode nav ul a {
+    color: #111;
+}
+
+body.light-mode .device-btn {
+    background: #ddd !important;
+    color: black !important;
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-container form {
+        width: 90%;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
 }
