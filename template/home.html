@@ -49,10 +49,10 @@
     {% for wallpaper in wallpapers %}
     
     <div class="card {% if wallpaper.device == 'desktop' %}desktop{% else %}mobile{% endif %}">
-        <img src="{{ wallpaper.img.url }}">
+        <img src="https://res.cloudinary.com/dydfafccz/image/upload/{{ wallpaper.img }}">
 
         
-        <a href="{{ wallpaper.img.url }}" download class="download-btn">
+        <a href="https://res.cloudinary.com/dydfafccz/image/upload/{{ wallpaper.img }}" download class="download-btn">
             ⬇
         </a>
 
