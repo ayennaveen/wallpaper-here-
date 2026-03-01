@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'main',
 ]
 
-# Cloudinary configuration
+# Cloudinary configuration (SINGLE CONFIGURATION)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dydfafccz',
     'API_KEY': '739943485751172',
@@ -74,19 +74,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mkdir.wsgi.application'
 
-# Database - Using DATABASE_URL from environment
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if not DATABASE_URL:
-    # Fallback - this should NOT be used in production
-    DATABASE_URL = "postgresql://wallpaper_g7kj_user:iA59in3Wvuj4nZreiWbAYVU5LtLTDlNW@singapore-postgres.render.com:5432/wallpaper_g7kj"
-
-DATABASES = {
-    "default": dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=600,
-        ssl_require=True,
-    )
-}
+# Database configuration
+if os.environ.get('RENDER', False):
+    # On Render - use PostgreSQL
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    if DATABASE_URL:
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=DATABASE_URL,
+                conn_max_age=600,
+                ssl_require=True
+            )
+        }
+    else:
+        # Fallback (should not happen on Render)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+else:
+    # Local development - SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -119,76 +134,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Cloudinary storage
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
+# Cloudinary storage (SINGLE CONFIGURATION)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# At the top of mkdir/settings.py, add:
-import os
-import sys
-from pathlib import Path
-import dj_database_url
-
-# Database configuration with fallback
-if os.environ.get('RENDER', False):
-    # On Render - use PostgreSQL
-    DATABASE_URL = os.environ.get('DATABASE_URL')
-    if DATABASE_URL:
-        DATABASES = {
-            'default': dj_database_url.config(
-                default=DATABASE_URL,
-                conn_max_age=600,
-                ssl_require=True
-            )
-        }
-    else:
-        # Fallback to SQLite if no DATABASE_URL (for testing)
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': Path(__file__).resolve().parent.parent / 'db.sqlite3',
-            }
-        }
-else:
-    # Local development - SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': Path(__file__).resolve().parent.parent / 'db.sqlite3',
-        }
-    }
-
-    # Cloudinary configuration
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dydfafccz',
-    'API_KEY': '739943485751172',
-    'API_SECRET': 'g_9doBvNhKbW-XyO34QOqmTTvTk'
-}
-
-cloudinary.config(
-    cloud_name="dydfafccz",
-    api_key="739943485751172",
-    api_secret="g_9doBvNhKbW-XyO34QOqmTTvTk",
-    secure=True
-)
-
-# Make sure these are set correctly
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
-import cloudinary
-import cloudinary.api
-
-# Test Cloudinary connection
-try:
-    result = cloudinary.api.ping()
-    print("Cloudinary connected:", result)
-except Exception as e:
-    print("Cloudinary error:", e)
