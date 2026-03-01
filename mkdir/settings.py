@@ -183,3 +183,12 @@ cloudinary.config(
 # Make sure these are set correctly
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
+import cloudinary
+import cloudinary.api
+
+# Test Cloudinary connection
+try:
+    result = cloudinary.api.ping()
+    print("Cloudinary connected:", result)
+except Exception as e:
+    print("Cloudinary error:", e)

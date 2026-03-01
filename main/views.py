@@ -25,3 +25,12 @@ def home(request):
     return render(request, 'home.html', {
         'wallpapers': wallpapers
     })
+def home(request):
+    from main.models import Wallpaper
+    wallpapers = Wallpaper.objects.all()
+    print(f"DEBUG: Found {wallpapers.count()} wallpapers")  # This will show in Render logs
+    
+    for w in wallpapers:
+        print(f"DEBUG: {w.title} - {w.img.url if w.img else 'No image'}")
+    
+    return render(request, 'home.html', {'wallpapers': wallpapers})
