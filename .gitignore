@@ -2,5 +2,7 @@ __pycache__/
 *.pyc
 .env
 db.sqlite3
-media/
+# media/ is ignored by default to avoid committing uploads, but on Render
+# local /media/ files will not be available unless they are tracked.
+# Remove this ignore if you want current media files deployed from the repo.
 staticfiles/
