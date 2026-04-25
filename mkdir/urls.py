@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include('main.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# In production on Render, DEBUG=False, so media file URLs are not served automatically.
+# If you are using local media uploads, keep this route so /media/ URLs still resolve.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
