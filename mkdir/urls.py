@@ -1,16 +1,18 @@
 
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
 ]
 
-# In production on Render, DEBUG=False, so media file URLs are not served automatically.
-# If you are using local media uploads, keep this route so /media/ URLs still resolve.
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve uploaded media files from MEDIA_ROOT at /media/.
+# This is required here because uploaded wallpaper images are stored locally and need a URL route.
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
 
