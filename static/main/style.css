@@ -133,9 +133,9 @@ body.dark {
     box-sizing: border-box;
 }
 .wallpaper-container {
-    column-width: 240px;
-    column-gap: 24px;
-    padding: 24px;
+    column-width: 280px;
+    column-gap: 28px;
+    padding: 32px;
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
@@ -173,9 +173,25 @@ body.dark {
     aspect-ratio: 9 / 16;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
     .wallpaper-container {
-        column-width: 100%;
+        column-width: 240px;
+        column-gap: 24px;
+        padding: 26px;
+    }
+}
+
+@media (max-width: 860px) {
+    .wallpaper-container {
+        column-width: 200px;
+        column-gap: 20px;
+        padding: 22px;
+    }
+}
+
+@media (max-width: 640px) {
+    .wallpaper-container {
+        column-width: 160px;
         column-gap: 16px;
         padding: 16px;
     }
@@ -201,6 +217,13 @@ body.dark {
     }
 }
 
+@media (max-width: 420px) {
+    .wallpaper-container {
+        column-width: 100%;
+        column-gap: 14px;
+        padding: 14px;
+    }
+}
 /* DOWNLOAD BUTTON */
 .download-btn {
     position: absolute;
