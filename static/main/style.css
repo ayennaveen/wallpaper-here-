@@ -133,18 +133,25 @@ body.dark {
     box-sizing: border-box;
 }
 .wallpaper-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    column-width: 300px;
+    column-gap: 30px;
     padding: 40px;
+    width: min(100%, 1280px);
+    margin: 0 auto;
 }
 
 /* CARD BASE */
 .card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 30px;
     position: relative;
     overflow: hidden;
     border-radius: 15px;
     background: #000;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 /* IMAGE FIX */
@@ -157,14 +164,12 @@ body.dark {
 
 /* DESKTOP 16:9 */
 .desktop {
-    width: 500px;
-    height: 281px; /* 16:9 ratio */
+    aspect-ratio: 16 / 9;
 }
 
 /* MOBILE 9:16 */
 .mobile {
-    width: 250px;
-    height: 444px; /* 9:16 ratio */
+    aspect-ratio: 9 / 16;
 }
 
 /* DOWNLOAD BUTTON */
