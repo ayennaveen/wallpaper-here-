@@ -3,15 +3,9 @@ services:
     name: wallpaper-here
     runtime: python
     plan: free
-    buildCommand: >
-      pip install -r requirements.txt &&
-      npm install &&
-      npm run build &&
-      python manage.py collectstatic --noinput &&
-      python manage.py migrate
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
     startCommand: gunicorn mkdir.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.4
-      - key: NODE_MAJOR
-        value: 18
+
