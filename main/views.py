@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Wallpaper
 
 def home(request):
@@ -19,8 +19,21 @@ def home(request):
     if search:
         wallpapers = wallpapers.filter(title__icontains=search.strip())
 
-    print(f"DEBUG: Found {wallpapers.count()} wallpapers")  # This will show in Render logs
+    # Render logs for debugging
+    print(f"DEBUG: Found {wallpapers.count()} wallpapers")  
     for w in wallpapers:
         print(f"DEBUG: {w.title} - {w.img.url if w.img else 'No image'}")
 
-    return render(request, 'home.html', {'wallpapers': wallpapers})
+    # NEW: Convert the queryset into a list of dictionaries for React
+    data = []
+    for w in wallpapers:
+        data.append({
+            'id': w.id,
+            'title': w.title,
+            'device': w.device,
+            'type': w.type, 
+            'img_url': w.img.url if w.img else ''
+        })
+
+    # NEW: Return JsonResponse instead of render()
+    return JsonResponse({'wallpapers': data})
